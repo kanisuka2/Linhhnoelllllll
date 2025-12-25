@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎄 Noel cho Linh 🎄</title>
+
+<style>
+body{
+  margin:0; min-height:100vh; overflow:hidden;
+  background:radial-gradient(circle at top,#3a005c,#12001f);
+  font-family:monospace; color:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+}
+
+/* ❄💖⭐ */
+.fall{position:fixed; top:-20px; pointer-events:none; animation:fall linear infinite;}
+@keyframes fall{to{transform:translateY(120vh)}}
+
+/* 🎄 */
+.tree{font-size:32px; line-height:1.1; position:relative;}
+.star{color:gold; text-shadow:0 0 25px gold;}
+.light{animation:blink 1.4s infinite alternate;}
+@keyframes blink{0%{color:red}50%{color:hotpink}100%{color:cyan}}
+
+/* 🎁 */
+.gifts{margin-top:10px; font-size:38px; display:flex; gap:14px;}
+.gift{cursor:pointer; filter:drop-shadow(0 0 8px rgba(255,200,80,.8));}
+
+/* ✍️ */
+input{margin-top:14px; padding:12px 22px; border-radius:30px; border:none; font-size:18px;}
+button{margin-top:12px; padding:14px 34px; border-radius:40px; border:none;
+  font-size:18px; background:linear-gradient(135deg,#ff5fa2,#ff85c2);
+  color:#fff; cursor:pointer; box-shadow:0 0 30px rgba(255,120,180,.9);}
+
+#msg,#sub,#error{display:none;}
+#msg{margin-top:18px; font-size:32px; color:#ffb6d9; text-shadow:0 0 20px pink;}
+#sub{margin-top:6px; font-size:20px;}
+#error{color:#ccc}
+
+/* ✨ chữ bay từ hộp quà */
+.popWord{
+  position:fixed;
+  font-size:26px;
+  color:#fff;
+  text-shadow:0 0 10px pink;
+  animation:pop 2.5s ease-out forwards;
+}
+@keyframes pop{
+  from{transform:translateY(0) scale(0.8); opacity:1}
+  to{transform:translateY(-120px) rotate(12deg) scale(1.2); opacity:0}
+}
+
+/* 🎅 Noel */
+.noel{
+  position:fixed; bottom:20px;
+  font-size:40px;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-10px)}}
+.left{left:10px}
+.right{right:10px}
+.center{left:50%; transform:translateX(-50%)}
+</style>
+</head>
+
+<body>
+
+<script>
+/* ❄💖⭐ rơi */
+const icons=["❄","💖","⭐"];
+for(let i=0;i<260;i++){
+  const f=document.createElement("div");
+  f.className="fall";
+  f.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize=14+Math.random()*22+"px";
+  f.style.opacity=Math.random();
+  f.style.animationDuration=3+Math.random()*6+"s";
+  document.body.appendChild(f);
+}
+</script>
+
+<!-- 🎅 Nhân vật -->
+<div class="noel left">🎅</div>
+<div class="noel right">⛄</div>
+<div class="noel center">🦌🛷🦌</div>
+
+<!-- 🎄 -->
+<div class="tree">
+⭐<br>
+<span class="light">***</span><br>
+<span class="light">*****</span><br>
+<span class="light">*******</span><br>
+<span class="light">*********</span><br>
+<span class="light">***********</span><br>
+<span class="light">*************</span><br>
+<span class="light">***************</span><br>
+<span class="light">*****************</span><br>
+|||<br>|||
+</div>
+
+<!-- 🎁 -->
+<div class="gifts">
+  <span class="gift" onclick="spawnWord(event)">🎁</span>
+  <span class="gift" onclick="spawnWord(event)">🎁</span>
+  <span class="gift" onclick="spawnWord(event)">🎁</span>
+  <span class="gift" onclick="spawnWord(event)">🎁</span>
+  <span class="gift" onclick="spawnWord(event)">🎁</span>
+</div>
+
+<input id="nameInput" placeholder="Nhập tên vào đây 💕">
+<button onclick="openGift()">🎶 MỞ QUÀ NOEL 🎶</button>
+
+<div id="msg">🎄 Mery chít mợt Linh 🎄</div>
+<div id="sub">Nhớ bánh Creampie Velvet của anh đấy nhé =]]]</div>
+<div id="error">🙈 Chưa đúng tên rồi…</div>
+
+<audio id="music" src="jingle-bells.mp3"></audio>
+
+<script>
+const words=["Chúc","Em","Giáng","Sinh","An Lành"];
+
+function spawnWord(e){
+  const rect=e.target.getBoundingClientRect();
+  const w=document.createElement("div");
+  w.className="popWord";
+  w.textContent=words[Math.floor(Math.random()*words.length)];
+  w.style.left=rect.left+rect.width/2+"px";
+  w.style.top=rect.top+"px";
+  document.body.appendChild(w);
+  setTimeout(()=>w.remove(),2500);
+}
+
+function openGift(){
+  const name=document.getElementById("nameInput").value.trim().toLowerCase();
+  if(name==="linh"){
+    document.getElementById("error").style.display="none";
+    document.getElementById("msg").style.display="block";
+    document.getElementById("sub").style.display="block";
+    document.getElementById("music").play();
+  }else{
+    document.getElementById("error").style.display="block";
+  }
+}
+</script>
+
+</body>
+</html>
